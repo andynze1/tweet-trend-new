@@ -12,9 +12,9 @@ pipeline {
                 deleteDir()
             }
         }
-        stage('Clone code') {
+        stage('Build') {
             steps {
-                git branch: 'main', url: 'https://github.com/andynze1/tweet-trend-new.git'
+                sh 'mvn clean deploy'
             }
         }
         stage('Clean /tmp Directory') {
