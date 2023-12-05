@@ -4,9 +4,9 @@ pipeline {
             label 'maven'
         }
     }
-environment {
-    PATH = "/opt/apache-mvn"
-}
+// environment {
+//     PATH = "/opt/apache-mvn"
+// }
 
     stages {
         // stage('Clean') {
