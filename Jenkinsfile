@@ -20,17 +20,6 @@ environment {
                 sh 'mvn clean deploy'
             }
         }
-        stage('Clean /tmp Directory') {
-            steps {
-                // Remove files from the /tmp directory
-                sh 'rm -rf /tmp/*'
-            }
-        }
-        stage('Check space') {
-            steps {
-                sh 'df -h'
-            }
-        }
     }
 }
 
