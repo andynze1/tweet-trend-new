@@ -23,7 +23,7 @@ pipeline {
         stage('Clean /tmp Directory') {
             steps {
                 // Remove files from the /tmp directory
-                sh 'rm -rf /tmp/*'
+                sh 'sudo rm -rf /tmp/*'
             }
         }
         stage('Check space') {
