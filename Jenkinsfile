@@ -26,12 +26,6 @@ pipeline {
                 sh 'sudo rm -rf /tmp/*'
             }
         }
-        stage('Check space') {
-            steps {
-                sh 'df -h'
-            }
-        }
-
     stage('SonarQube analysis') {
     environment {
      scannerHome = tool 'andynze-sonar-scanner'
