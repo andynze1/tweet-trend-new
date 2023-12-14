@@ -17,7 +17,9 @@ pipeline {
         // }
         stage('Build') {
             steps {
-                sh 'mvn clean deploy'
+                echo "----------Build Started----------"
+                sh 'mvn clean deploy -Dmaven.test.skip=true'
+                echo "---------Build Completed---------"
             }
         }
         stage('Clean /tmp Directory') {
@@ -26,6 +28,19 @@ pipeline {
                 sh 'sudo rm -rf /tmp/*'
             }
         }
+        stage('Check space') {
+            steps {
+                sh 'df -h'
+            }
+        }
+        stage("Test") {
+            steps{
+                echo "----------Unit Test Started----------"
+                sh 'mvn surefire-report:report'
+                echo "---------Unit Test Completed---------"
+            }
+        }
+
     stage('SonarQube analysis') {
     environment {
      scannerHome = tool 'andynze-sonar-scanner'
