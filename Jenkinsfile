@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Clean /tmp Directory') {
             steps {
-                // Remove files from the /tmp directory
+                // Remove files from the /tmp directory.
                 sh 'sudo rm -rf /tmp/*'
             }
         }
