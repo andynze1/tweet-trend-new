@@ -1,5 +1,5 @@
 def registry = 'https://dml003.jfrog.io/'
-def imageName = 'dml003.jfrog.io/dml003-docker/ttrend'
+def imageName = 'dml003.jfrog.io/dml003-docker/demo-workshop'
 def version   = '2.1.2'
 pipeline {
     agent {
