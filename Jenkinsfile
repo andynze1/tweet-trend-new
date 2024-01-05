@@ -1,4 +1,6 @@
 def registry = 'https://dml003.jfrog.io/'
+def imageName = 'dml003.jfrog.io/dml003-docker/ttrend'
+def version   = '2.1.2'
 pipeline {
     agent {
         node {
@@ -88,6 +90,27 @@ pipeline {
                      echo '<--------------- Jar Publish Ended --------------->'          
                 }
             }   
-        } 
+        }
+    stage(" Docker Build ") {
+      steps {
+        script {
+           echo '<--------------- Docker Build Started --------------->'
+           app = docker.build(imageName+":"+version)
+           echo '<--------------- Docker Build Ends --------------->'
+        }
+      }
+    }
+
+            stage (" Docker Publish "){
+        steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'artifactory_token'){
+                    app.push()
+                }    
+               echo '<--------------- Docker Publish Ended --------------->'  
+            }
+        }
+    }
     }
 }
