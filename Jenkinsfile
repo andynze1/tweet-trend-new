@@ -1,5 +1,5 @@
 def registry = 'https://dml003.jfrog.io/'
-def imageName = 'dml003.jfrog.io/dml003-docker/demo-workshop'
+def imageName = 'dml003.jfrog.io/dml003-docker-local/ttrend'
 def version   = '2.1.2'
 pipeline {
     agent {
@@ -71,7 +71,7 @@ pipeline {
         steps {
             script {
                 echo '<--------------- Jar Publish Started --------------->'
-                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"Jenkins-access-token2"
+                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"jfrog-auth-cred"
                      def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
                      def uploadSpec = """{
                           "files": [
@@ -91,27 +91,27 @@ pipeline {
                 }
             }   
         }
-    // stage(" Docker Build ") {
-    //   steps {
-    //     script {
-    //        echo '<--------------- Docker Build Started --------------->'
-    //        app = docker.build(imageName+":"+version)
-    //        echo '<--------------- Docker Build Ends --------------->'
-    //     }
-    //   }
-    // }
+    stage(" Docker Build ") {
+      steps {
+        script {
+           echo '<--------------- Docker Build Started --------------->'
+           app = docker.build(imageName+":"+version)
+           echo '<--------------- Docker Build Ends --------------->'
+        }
+      }
+    }
 
-    // stage (" Docker Publish "){
-    //     steps {
-    //         script {
-    //            echo '<--------------- Docker Publish Started --------------->'  
-    //             docker.withRegistry(registry, 'artifactory_token'){
-    //                 app.push()
-    //             }    
-    //            echo '<--------------- Docker Publish Ended --------------->'  
-    //         }
-    //     }
-    // }
+    stage (" Docker Publish "){
+        steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'jfrog-auth-cred'){
+                    app.push()
+                }    
+               echo '<--------------- Docker Publish Ended --------------->'  
+            }
+        }
+    }
     }
 }
 
