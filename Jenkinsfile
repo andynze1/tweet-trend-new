@@ -2,13 +2,6 @@ def registry = 'https://dml003.jfrog.io/'
 def imageName = 'dml003.jfrog.io/dml003-docker-local/ttrend'
 def version   = '2.1.2'
 pipeline {
-    options {
-        timestamps()
-        disableConcurrentBuilds()
-        ansiColor('xterm')
-        timeout(time: 3, unit: 'HOURS')
-        buildDiscarder(logRotator(numToKeepStr:'20'))
-        }
     agent {
         node {
             label 'maven'
