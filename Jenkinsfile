@@ -109,36 +109,8 @@ pipeline {
                     app.push()
                 }    
                echo '<--------------- Docker Publish Ended --------------->'  
-            }
-        }
-    }
-    post {
-        always {
-            script {
-                def daysToKeep = 5
-                def numToKeep = 5
-
-                currentBuild.rawBuild.parent.getItems().each { job ->
-                    def buildsToDelete = job.getBuilds().findAll { build ->
-                    def currentDate = new Date()
-                    def buildDate = new Date(build.getTimeInMillis())
-                    def daysDifference = (currentDate - buildDate) / (1000 * 60 * 60 * 24)
-                    daysDifference > daysToKeep
-                }.sort { it.getTimeInMillis() }[0..-(numToKeep + 1)]
-
-                if (buildsToDelete) {
-                    echo "Deleting old builds for job: ${job.twitter_trend_multibranch_pipeline}"
-                    buildsToDelete.each { build ->
-                        echo "Deleting build #${build.number} (${build.getTime()})"
-                        build.delete()
-                    }
-                } else {
-                    echo "No old builds to delete for job: ${job.fullName}"
                 }
             }
         }
     }
-}
-
-}
 }
