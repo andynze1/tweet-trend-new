@@ -112,5 +112,22 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            script {
+                def daysToKeep = 5
+                def numToKeep = 5
+
+                currentBuild.rawBuild.parent.getItems().each { job ->
+                    job.getBuilds().findAll { build ->
+                        def currentDate = new Date()
+                        def buildDate = new Date(build.getTimeInMillis())
+                        def daysDifference = (currentDate - buildDate) / (1000 * 60 * 60 * 24)
+                        daysDifference > daysToKeep
+                    }.sort { it.getTimeInMillis() }[0..-(numToKeep + 1)].each { build ->
+                        build.delete()
+                    }
+                }
+            }
     }
 }
