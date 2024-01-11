@@ -1,8 +1,6 @@
 def registry = 'https://dml003.jfrog.io/'
 def imageName = 'dml003.jfrog.io/dml003-docker-local/ttrend'
 def version   = '2.1.2'
-def daysToKeep = 5
-def numToKeep = 5
 pipeline {
     agent {
         node {
@@ -117,6 +115,9 @@ pipeline {
     post {
         always {
             script {
+                def daysToKeep = 5
+                def numToKeep = 5
+
                 currentBuild.rawBuild.parent.getItems().each { job ->
                     job.getBuilds().findAll { build ->
                         def currentDate = new Date()
@@ -127,7 +128,6 @@ pipeline {
                         build.delete()
                     }
                 }
-        
             }
         }
     }
