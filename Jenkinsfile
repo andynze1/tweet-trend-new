@@ -7,6 +7,14 @@ pipeline {
             label 'maven'
         }
     }
+
+    options {
+        timestamps()
+        disableConcurrentBuilds()
+        ansiColor('xterm')
+        timeout(time: 3, unit: 'HOURS')
+        buildDiscarder(logRotator(numToKeepStr:'20'))
+        }
 // environment {
 //     PATH = "/opt/apache-mvn"
 // }
