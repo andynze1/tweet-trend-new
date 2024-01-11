@@ -2,12 +2,6 @@ def registry = 'https://dml003.jfrog.io/'
 def imageName = 'dml003.jfrog.io/dml003-docker-local/ttrend'
 def version   = '2.1.2'
 pipeline {
-    agent {
-        node {
-            label 'maven'
-        }
-    }
-
     options {
         timestamps()
         disableConcurrentBuilds()
@@ -15,6 +9,11 @@ pipeline {
         timeout(time: 3, unit: 'HOURS')
         buildDiscarder(logRotator(numToKeepStr:'20'))
         }
+    agent {
+        node {
+            label 'maven'
+        }
+    }
 // environment {
 //     PATH = "/opt/apache-mvn"
 // }
