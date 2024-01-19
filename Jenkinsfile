@@ -109,11 +109,9 @@ pipeline {
                     app.push()
                 }    
                echo '<--------------- Docker Publish Ended --------------->'  
-                }
             }
         }
     }
-
     stage ("Deploy"){
         steps {
             script {
