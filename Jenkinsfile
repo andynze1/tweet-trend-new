@@ -114,7 +114,7 @@ pipeline {
     }
     stage ("Deploy"){
         steps {
-            node {
+            script {
                 sh './deploy.sh'
                 }
             }
