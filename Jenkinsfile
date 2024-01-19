@@ -116,6 +116,7 @@ pipeline {
         steps {
             script {
                 sh './deploy.sh'
+                }
             }
         }
     }
