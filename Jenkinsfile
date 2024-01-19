@@ -115,7 +115,7 @@ pipeline {
     stage ("Deploy"){
         steps {
             script {
-                sh './deploy.sh'
+                sudo sh './deploy.sh'
                 }
             }
         }
