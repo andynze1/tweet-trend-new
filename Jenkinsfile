@@ -1,12 +1,12 @@
-def registry = 'https://dml003.jfrog.io/'
-def imageName = 'dml003.jfrog.io/dml003-docker-local/ttrend'
+def registry = 'https://dml004.jfrog.io/'
+def imageName = 'dml004.jfrog.io/dml004-docker-local/ttrend'
 def version   = '2.1.2'
 pipeline {
     agent {
         node {
             label 'maven'
         }
-    }
+ }
 // environment {
 //     PATH = "/opt/apache-mvn"
 // }
@@ -77,7 +77,7 @@ pipeline {
                           "files": [
                             {
                               "pattern": "jarstaging/(*)",
-                              "target": "dml003-libs-release-local/{1}",
+                              "target": "dml004-libs-release-local/{1}",
                               "flat": "false",
                               "props" : "${properties}",
                               "exclusions": [ "*.sha1", "*.md5"]
